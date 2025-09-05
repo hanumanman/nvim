@@ -75,7 +75,10 @@ return {
         -- stylua: ignore
         ---@type snacks.dashboard.Item[]
         keys = {
-          { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+          -- { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles', { filter = { cwd = 'true' } })" },
+          { icon = " ", key = "r", desc = "Recent Files", action = function()
+              Snacks.picker.recent({filter = {cwd = true}})
+            end},
           { icon = " ", key = "s", desc = "Restore Session", section = "session" },
           { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
           { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
