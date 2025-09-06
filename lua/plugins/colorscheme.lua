@@ -15,8 +15,6 @@ return {
         all = {
           SnacksPickerDir = { fg = "#8B949E" },
           Pmenu = { bg = "none" },
-          -- Float = { bg = "none" },
-          -- NormalFloat = { bg = "none" },
           FloatBorder = { link = "NormalFloat" },
           LspReferenceText = { bg = "none" },
           BlinkCmpMenu = { bg = "none" },
@@ -30,7 +28,7 @@ return {
     -- Configure LazyVim to load colorscheme
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "terafox",
+      colorscheme = "duskfox",
     },
   },
 }
