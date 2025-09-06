@@ -8,7 +8,6 @@ return {
           comments = "italic",
           constants = "bold",
           functions = "italic",
-          Snacks,
         },
       },
       groups = {
@@ -20,6 +19,7 @@ return {
           BlinkCmpMenu = { bg = "none" },
           BlinkCmpDoc = { bg = "none" },
           BlinkCmpDocBorder = { bg = "none" },
+          LspSignatureActiveParameter = { link = "@string.special.url" },
         },
       },
     },
