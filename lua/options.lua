@@ -12,7 +12,5 @@ vim.opt.expandtab = true
 vim.opt.mouse = "a"
 vim.opt.showmode = false
 vim.opt.cursorline = true
-
-vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
-end)
+vim.opt.fillchars = { eob = " " }
+vim.opt.clipboard = "unnamedplus"
