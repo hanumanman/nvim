@@ -1,0 +1,58 @@
+local ls = require("luasnip")
+local s = ls.snippet
+local t = ls.text_node
+local i = ls.insert_node
+
+return {
+	s({ trig = "doc", name = "JSDoc comment" }, {
+		t("/**"),
+		t({ "", " * " }),
+		i(1, "description"),
+		t({ "", " * @param " }),
+		i(2, "name"),
+		t(" - "),
+		i(3, "description"),
+		t({ "", " * @returns " }),
+		i(4, "type"),
+		t(" - "),
+		i(5, "description"),
+		t({ "", " */" }),
+	}),
+	s({ trig = "envconfig", name = "Environment Configuration" }, {
+		t('import { z } from "zod"'),
+		t({ "", "" }),
+		t({ "", "" }),
+		t({ "", "const envSchema = z.object({" }),
+		t({ "", "  // Node environment" }),
+		t({ "", "  NODE_ENV: z" }),
+		t({ "", '    .enum(["development", "production", "test"])' }),
+		t({ "", '    .default("development"),' }),
+		t({ "", "" }),
+		t({ "", "  // Server configuration" }),
+		t({ "", "  PORT: z.coerce.number().positive().default(3000)," }),
+		t({ "", "})" }),
+		t({ "", "" }),
+		t({ "", "export type Env = z.infer<typeof envSchema>" }),
+		t({ "", "" }),
+		t({ "", "function validateEnv(): Env {" }),
+		t({ "", "  const result = envSchema.safeParse(process.env)" }),
+		t({ "", "" }),
+		t({ "", "  if (!result.success) {" }),
+		t({ "", '    console.error("❌ Invalid environment variables:")' }),
+		t({ "", "" }),
+		t({ "", "    const errorMessages = z.prettifyError(result.error)" }),
+		t({ "", "" }),
+		t({ "", "    throw new Error(" }),
+		t({
+			"",
+			"      `Environment validation failed:\\n${errorMessages}\\n\\nPlease check your .env file and ensure all required variables are set.`",
+		}),
+		t({ "", "    )" }),
+		t({ "", "  }" }),
+		t({ "", "" }),
+		t({ "", "  return result.data" }),
+		t({ "", "}" }),
+		t({ "", "" }),
+		t({ "", "export const env = validateEnv()" }),
+	}),
+}
