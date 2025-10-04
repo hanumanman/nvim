@@ -24,7 +24,7 @@ return {
 			"BlinkCmpDocBorder",
 		}, { bg = "none" })
 		set_highlights(
-			{ "LspSignatureActiveParameter" },
+			{ "LspSignatureActiveParameter", "FlashMatch" },
 			{ italic = true, fg = "#ff8349", underline = true, bold = true }
 		)
 		set_highlights({
