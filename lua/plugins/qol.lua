@@ -3,6 +3,8 @@ return {
 	{ "j-hui/fidget.nvim", lazy = false, opts = {} },
 	-- Underline current word
 	{ "nvim-mini/mini.cursorword", version = "*", opts = {} },
+	-- Icon pack
+	{ "nvim-mini/mini.icons", version = "*", opts = {} },
 	-- Add more textobject
 	{ "nvim-mini/mini.ai", version = "*", opts = { n_lines = 500 } },
 	-- Show appropriate buffer after one is removed
@@ -27,5 +29,13 @@ return {
 				mode = "virtualtext",
 			},
 		},
+	},
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		event = "VeryLazy",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		---@module 'render-markdown'
+		---@type render.md.UserConfig
+		opts = {},
 	},
 }

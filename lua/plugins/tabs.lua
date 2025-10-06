@@ -1,33 +1,34 @@
 return {
-	{
-		"akinsho/bufferline.nvim",
-		version = "*",
-		enabled = true,
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			local bufferline = require("bufferline")
-			bufferline.setup({
-				options = {
-					style_preset = {
-						bufferline.style_preset.minimal,
-						bufferline.style_preset.no_italic,
-					},
-					mode = "buffers", -- set to "tabs" to only show tabpages instead
-					themable = true,
-					indicator = {
-						style = "none",
-					},
-					show_buffer_close_icons = false,
-					show_close_icon = false,
-					separator_style = { "", "" },
-					diagnostics = "nvim_lsp",
-					diagnostics_indicator = function(count, level)
-						local icons = { error = "󱚡 ", warning = " " } -- Only show errors and warnings
-						local icon = icons[level] or ""
-						return icon ~= "" and " " .. icon .. count or ""
-					end,
-				},
-			})
-		end,
-	},
+	{ "nvim-mini/mini.tabline", version = "*", opts = {} },
+	-- {
+	-- 	"akinsho/bufferline.nvim",
+	-- 	version = "*",
+	-- 	enabled = true,
+	-- 	dependencies = "nvim-mini/mini.icons",
+	-- 	config = function()
+	-- 		local bufferline = require("bufferline")
+	-- 		bufferline.setup({
+	-- 			options = {
+	-- 				style_preset = {
+	-- 					bufferline.style_preset.minimal,
+	-- 					bufferline.style_preset.no_italic,
+	-- 				},
+	-- 				mode = "buffers", -- set to "tabs" to only show tabpages instead
+	-- 				themable = true,
+	-- 				indicator = {
+	-- 					style = "none",
+	-- 				},
+	-- 				show_buffer_close_icons = false,
+	-- 				show_close_icon = false,
+	-- 				separator_style = { "", "" },
+	-- 				diagnostics = "nvim_lsp",
+	-- 				diagnostics_indicator = function(count, level)
+	-- 					local icons = { error = "󱚡 ", warning = " " } -- Only show errors and warnings
+	-- 					local icon = icons[level] or ""
+	-- 					return icon ~= "" and " " .. icon .. count or ""
+	-- 				end,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 }

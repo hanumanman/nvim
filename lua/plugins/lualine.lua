@@ -2,9 +2,6 @@ return {
 	"nvim-lualine/lualine.nvim",
 	enabled = true,
 	event = "VimEnter",
-	dependencies = {
-		"nvim-tree/nvim-web-devicons",
-	},
 	config = function()
 		local function git_username()
 			local handle = io.popen("git config user.name")
