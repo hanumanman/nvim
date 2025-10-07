@@ -2,7 +2,11 @@ return {
 	"ibhagwan/fzf-lua",
 	lazy = false,
 	dependencies = { "nvim-mini/mini.icons" },
-	opts = {},
+	config = function()
+		require("fzf-lua").setup({})
+		-- Register fzf-lua as the UI interface for vim.ui.select
+		FzfLua.register_ui_select()
+	end,
 	keys = {
 		{
 			"<leader>s",
