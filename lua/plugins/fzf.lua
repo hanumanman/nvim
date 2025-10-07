@@ -30,7 +30,7 @@ return {
 			desc = "Search old files",
 		},
 		{
-			"<leader>d/",
+			"<leader>/",
 			function()
 				FzfLua.blines()
 			end,
