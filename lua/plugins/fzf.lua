@@ -26,6 +26,13 @@ return {
 			desc = "Search old files",
 		},
 		{
+			"<leader>d/",
+			function()
+				FzfLua.blines()
+			end,
+			desc = "Search old files",
+		},
+		{
 			"<leader>da",
 			function()
 				FzfLua.resume()
