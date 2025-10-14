@@ -18,6 +18,6 @@ require("lazy").setup({
 	spec = {
 		{ import = "plugins" },
 	},
-	install = { colorscheme = { "gruvbox" } },
+	install = { colorscheme = { "nordic" } },
 	checker = { enabled = false },
 })

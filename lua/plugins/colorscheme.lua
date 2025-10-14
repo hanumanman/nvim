@@ -5,12 +5,11 @@ local function set_highlights(highlights, definition)
 end
 
 return {
-	"ellisonleao/gruvbox.nvim",
+	"EdenEast/nightfox.nvim",
 	priority = 1000,
 	config = function()
-		vim.o.background = "dark"
-		vim.cmd([[colorscheme gruvbox]])
-
+		-- vim.o.background = "dark"
+		vim.cmd.colorscheme("terafox")
 		set_highlights({ "@lsp.type.variable" }, { bold = true })
 		set_highlights({
 			"BlinkCmpMenu",
@@ -34,7 +33,8 @@ return {
 			"@function.member",
 			"@function.call",
 		}, { italic = true })
-		set_highlights({ "@comment", "@lsp.type.comment" }, { italic = true, fg = "#6D7F8B" })
+		-- set_highlights({ "@comment", "@lsp.type.comment" }, { italic = true, fg = "#6D7F8B" })
+		-- set_highlights({ "TabLineSel" }, { fg = "#d8dee9", bg = "#191d24", bold = true })
+		-- set_highlights({ "TabLineFill", "TabLine" }, { fg = "#60728a", bg = "#191d24" })
 	end,
-	opts = {},
 }
