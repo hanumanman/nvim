@@ -36,6 +36,11 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
-		opts = {},
+		opts = {
+			enabled = false,
+		},
+		keys = {
+			{ "<leader>tm", "<cmd>RenderMarkdown toggle<cr>", desc = "Toggle Render Markdown" },
+		},
 	},
 }
