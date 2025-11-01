@@ -14,6 +14,7 @@ return {
 			typescriptreact = { "prettierd" },
 			markdown = { "prettierd" },
 			json = { "prettierd" },
+			jsonc = { "prettierd" },
 			html = { "prettierd" },
 			css = { "prettierd" },
 			scss = { "prettierd" },
