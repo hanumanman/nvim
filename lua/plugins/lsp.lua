@@ -47,15 +47,32 @@ return {
           map("<leader>ds", function() FzfLua.lsp_document_symbols() end, "Find LSP document symbols")
           map('<leader>r', vim.lsp.buf.rename, 'Rename')
           map('<leader>ca', vim.lsp.buf.code_action, 'Code action', { 'n', 'x' })
+          map('<leader>is', function()
+            local ft = vim.bo.filetype
+            if ft == 'python' then
+              local client = vim.lsp.get_client_by_id(event.data.client_id)
+              if client and client.name == 'ruff' then
+                client:request("workspace/executeCommand", {
+                  command = 'ruff.applyOrganizeImports',
+                  arguments = {
+                    { 
+                      uri = vim.uri_from_bufnr(event.buf),
+                      version = 1,
+                    },
+                  },
+                }, function(err, result) end)
+              end
+            elseif vim.tbl_contains({"typescript", "typescriptreact", "javascript", "javascriptreact"}, ft) then
+              require("vtsls").commands.organize_imports()
+            end
+          end, 'Organize imports')
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           -- The following code creates a keymap to toggle inlay hints in your
           -- code, if the language server you are using supports them
           if
             client
             and client.supports_method(
-              client,
-              vim.lsp.protocol.Methods.textDocument_inlayHint,
-              event.buf
+              vim.lsp.protocol.Methods.textDocument_inlayHint
             )
           then
             map('<leader>th', function()
@@ -70,6 +87,17 @@ return {
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 			local servers = {
+				vtsls = {
+					filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+				},
+				ruff = {
+					init_options = {
+						settings = {
+							organizeImports = true,
+							logLevel = "debug",
+						},
+					},
+				},
 				jsonls = {
 					-- lazy-load schemastore when needed
 					on_new_config = function(new_config)
@@ -130,7 +158,9 @@ return {
 				"eslint-lsp",
 				"tailwindcss-language-server",
 				"svelte-language-server",
+				"pyrefly",
 				-- formatter
+				"ruff",
 				"stylua",
 				"shfmt",
 				"prettierd",
@@ -158,14 +188,6 @@ return {
 		"yioneko/nvim-vtsls",
 		lazy = false,
 		keys = {
-			{
-				"<leader>is",
-				mode = "n",
-				function()
-					require("vtsls").commands.organize_imports()
-				end,
-				desc = "Organize imports",
-			},
 			{
 				"<leader>ia",
 				mode = "n",
