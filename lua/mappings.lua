@@ -1,8 +1,12 @@
 local map = vim.keymap.set
 
 map("n", "<leader>f", function()
-	vim.cmd("w")
-end, { desc = "Save and format" })
+	-- Call LSPSortImports with a callback that triggers formatting then saves
+	_G.lsp_sort_imports(function()
+		require("conform").format({ async = false, timeout_ms = 5000, lsp_format = "fallback" })
+		vim.cmd("w")
+	end)
+end, { desc = "Sort imports, format, and save" })
 
 map("n", "yie", "ggyG", { desc = "Yank entire file" })
 map("n", "yie", "ggyG", { desc = "Yank entire file" })

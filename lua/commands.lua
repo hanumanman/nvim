@@ -1,8 +1,9 @@
 -- Global commands for Neovim
 
--- LSPSortImports command
+-- LSPSortImports implementation
 -- Organize/sort imports based on the current filetype
-vim.api.nvim_create_user_command("LSPSortImports", function()
+-- @param callback Optional callback function to call after completion (or error)
+local function lsp_sort_imports(callback)
 	local bufnr = vim.api.nvim_get_current_buf()
 	local ft = vim.bo[bufnr].filetype
 
@@ -10,6 +11,9 @@ vim.api.nvim_create_user_command("LSPSortImports", function()
 	local clients = vim.lsp.get_clients({ bufnr = bufnr })
 	if #clients == 0 then
 		vim.notify("No LSP client attached to this buffer", vim.log.levels.WARN)
+		if callback then
+			callback()
+		end
 		return
 	end
 
@@ -27,6 +31,9 @@ vim.api.nvim_create_user_command("LSPSortImports", function()
 
 			if not ruff_client then
 				vim.notify("Ruff LSP not found", vim.log.levels.WARN)
+				if callback then
+					callback()
+				end
 				return
 			end
 
@@ -42,11 +49,27 @@ vim.api.nvim_create_user_command("LSPSortImports", function()
 				if err then
 					vim.notify("Error organizing imports: " .. vim.inspect(err), vim.log.levels.ERROR)
 				end
+				if callback then
+					callback()
+				end
 			end)
 		end,
 
 		typescript = function()
-			require("vtsls").commands.organize_imports(bufnr)
+			require("vtsls").commands.organize_imports(
+				bufnr,
+				function() -- on_resolve
+					if callback then
+						callback()
+					end
+				end,
+				function(err) -- on_reject
+					vim.notify("Error organizing imports: " .. vim.inspect(err), vim.log.levels.ERROR)
+					if callback then
+						callback()
+					end
+				end
+			)
 		end,
 	}
 
@@ -61,7 +84,18 @@ vim.api.nvim_create_user_command("LSPSortImports", function()
 		handler()
 	else
 		vim.notify("LSPSortImports not supported for filetype: " .. ft, vim.log.levels.WARN)
+		if callback then
+			callback()
+		end
 	end
+end
+
+-- Expose the function globally for use in keymaps
+_G.lsp_sort_imports = lsp_sort_imports
+
+-- User command for CLI usage
+vim.api.nvim_create_user_command("LSPSortImports", function()
+	lsp_sort_imports()
 end, {
 	desc = "Sort/organize imports using LSP",
 })
