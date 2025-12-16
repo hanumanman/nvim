@@ -19,7 +19,7 @@ return {
 			css = { "prettierd" },
 			scss = { "prettierd" },
 			sh = { "shfmt" },
-			python = { "black" },
+			python = { "ruff" },
 		},
 	},
 }

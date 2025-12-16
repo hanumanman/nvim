@@ -83,7 +83,7 @@ local function lsp_sort_imports(callback)
 	if handler then
 		handler()
 	else
-		vim.notify("LSPSortImports not supported for filetype: " .. ft, vim.log.levels.WARN)
+		vim.notify("LSPSortImports not supported for filetype: " .. ft, vim.log.levels.INFO)
 		if callback then
 			callback()
 		end
