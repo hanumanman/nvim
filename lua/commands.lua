@@ -56,20 +56,16 @@ local function lsp_sort_imports(callback)
 		end,
 
 		typescript = function()
-			require("vtsls").commands.organize_imports(
-				bufnr,
-				function() -- on_resolve
-					if callback then
-						callback()
-					end
-				end,
-				function(err) -- on_reject
-					vim.notify("Error organizing imports: " .. vim.inspect(err), vim.log.levels.ERROR)
-					if callback then
-						callback()
-					end
+			require("vtsls").commands.organize_imports(bufnr, function() -- on_resolve
+				if callback then
+					callback()
 				end
-			)
+			end, function(err) -- on_reject
+				vim.notify("Error organizing imports: " .. vim.inspect(err), vim.log.levels.ERROR)
+				if callback then
+					callback()
+				end
+			end)
 		end,
 	}
 
