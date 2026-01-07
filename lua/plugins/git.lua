@@ -2,6 +2,7 @@ return {
 	{
 		"lewis6991/gitsigns.nvim",
 		opts = {
+			signcolumn = true,
 			preview_config = {
 				-- Options passed to nvim_open_win
 				style = "minimal",

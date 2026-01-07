@@ -14,3 +14,4 @@ vim.opt.showmode = false
 vim.opt.cursorline = true
 vim.opt.fillchars = { eob = " " }
 vim.opt.clipboard = "unnamedplus"
+vim.opt.signcolumn = "yes:2"
