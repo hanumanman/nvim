@@ -1,9 +1,8 @@
----@diagnostic disable: missing-fields
 return {
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		main = "nvim-treesitter.configs", -- Sets main module to use for opts
+		-- main = "nvim-treesitter.configs", -- Sets main module to use for opts
 		dependencies = {
 			{
 				"windwp/nvim-ts-autotag",
