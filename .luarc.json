@@ -1,4 +1,5 @@
 {
-  "diagnostics.globals": ["FzfLua"]
+  "diagnostics.globals": ["FzfLua",
+        "vim"]
 }
 
