@@ -1,7 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.have_nerd_font = true
-
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.number = true
@@ -15,3 +14,6 @@ vim.opt.cursorline = true
 vim.opt.fillchars = { eob = " " }
 vim.opt.clipboard = "unnamedplus"
 vim.opt.signcolumn = "yes:2"
+vim.diagnostic.config({
+	virtual_text = true,
+})
