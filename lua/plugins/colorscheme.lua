@@ -1,4 +1,22 @@
 return {
+
+	{
+		"wnkz/monoglow.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("monoglow").setup({
+				on_colors = function(colors)
+					colors.glow = "#007BA7"
+				end,
+				on_highlights = function(hl)
+					hl["@function"] = { fg = "#ebebeb", italic = true, bold = true }
+					hl["@lsp.type.property"] = { fg = "#ebebeb", italic = false, bold = false }
+				end,
+			})
+			vim.cmd([[colorscheme monoglow]])
+		end,
+	},
 	{
 		"rebelot/kanagawa.nvim",
 		priority = 1000,
@@ -54,6 +72,7 @@ return {
 	},
 	{
 		"Mofiqul/vscode.nvim",
+		enabled = false,
 		lazy = false,
 		priority = 1000,
 		config = function()
