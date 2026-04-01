@@ -1,22 +1,34 @@
-return {
+local function set_hl(name, style)
+	vim.api.nvim_set_hl(0, name, style)
+end
 
+return {
 	{
-		"wnkz/monoglow.nvim",
+		"silentium-theme/silentium.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			require("monoglow").setup({
-				on_colors = function(colors)
-					colors.glow = "#007BA7"
-				end,
-				on_highlights = function(hl)
-					hl["@function"] = { fg = "#ebebeb", italic = true, bold = true }
-					hl["@lsp.type.property"] = { fg = "#ebebeb", italic = false, bold = false }
-				end,
+			require("silentium").setup({
+				accent = "#007BA7",
 			})
-			vim.cmd([[colorscheme monoglow]])
+			vim.cmd([[colorscheme silentium]])
+			set_hl("LspSignatureActiveParameter", { fg = "#007BA7" })
+			set_hl("MiniTablineHidden", { bg = "#141414", fg = "#404040" })
+			set_hl("Pmenu", { bg = "none" }) -- add `blend = vim.o.pumblend` to enable transparency
+			set_hl("BlinkCmpMenu", { bg = "none" })
+			set_hl("StatusLine", { bg = "none" })
+			set_hl("Float", { bg = "none" })
+			set_hl("NormalFloat", { bg = "none" })
+			set_hl("FloatTitle", { bg = "none" })
+			set_hl("FloatBorder", { bg = "none" })
+			set_hl("BlinkCmpBorder", { bg = "none" })
+			set_hl("BlinkCmpMenuBorder", { bg = "none" })
+			set_hl("LspReferenceText", { bg = "none" })
+			set_hl("BlinkCmpDoc", { bg = "none" })
+			set_hl("BlinkCmpDocBorder", { bg = "none" })
 		end,
 	},
+
 	{
 		"rebelot/kanagawa.nvim",
 		priority = 1000,
@@ -68,25 +80,6 @@ return {
 			})
 
 			vim.cmd([[colorscheme kanagawa]])
-		end,
-	},
-	{
-		"Mofiqul/vscode.nvim",
-		enabled = false,
-		lazy = false,
-		priority = 1000,
-		config = function()
-			vim.o.background = "dark"
-			require("vscode").setup({
-				group_overrides = {
-					FlashBackdrop = { fg = "gray" }, -- gray
-					FlashMatch = { link = "SpecialKey" },
-					FlashLabel = { link = "CurSearch" },
-					["@function"] = { italic = true },
-					["@lsp.type.variable"] = { bold = true },
-				},
-			})
-			vim.cmd([[colorscheme vscode]])
 		end,
 	},
 }
