@@ -1,4 +1,5 @@
 return {
+
 	"nvim-lualine/lualine.nvim",
 	enabled = true,
 	event = "VimEnter",
@@ -15,14 +16,10 @@ return {
 			end
 			return "󰊢 " .. (result:gsub("^%s*(.-)%s*$", "%1")) -- Trim whitespace and add git icon
 		end
-		local monoglow = require("lualine.themes.monoglow")
-
-		monoglow.insert.a.bg = "#007BA7"
-		monoglow.command.a.bg = "#007BA7"
 
 		require("lualine").setup({
 			options = {
-				theme = monoglow,
+				theme = "auto",
 				disabled_filetypes = { "neo-tree", "alpha", "trouble", "Avante", "AvanteInput" },
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
