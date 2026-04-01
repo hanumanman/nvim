@@ -13,6 +13,7 @@ return {
 			})
 			vim.cmd([[colorscheme silentium]])
 			set_hl("LspSignatureActiveParameter", { fg = "#007BA7" })
+			set_hl("MatchParen", { bg = "#007BA7" })
 			set_hl("MiniTablineHidden", { bg = "#141414", fg = "#404040" })
 			set_hl("Pmenu", { bg = "none" }) -- add `blend = vim.o.pumblend` to enable transparency
 			set_hl("BlinkCmpMenu", { bg = "none" })
