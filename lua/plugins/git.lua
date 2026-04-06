@@ -41,6 +41,7 @@ return {
 				map("n", "<leader>hR", gitsigns.reset_buffer, { desc = "git [R]eset buffer" })
 				map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "git [p]review hunk" })
 				map("n", "<leader>hb", gitsigns.blame_line, { desc = "git [b]lame line" })
+				map({ "o", "x" }, "ih", "<Cmd>Gitsigns select_hunk<CR>")
 			end,
 		},
 	},
@@ -63,5 +64,11 @@ return {
 		keys = {
 			{ "<leader>g", "<cmd>LazyGit<cr>", desc = "LazyGit" },
 		},
+	},
+	{
+		"sindrets/diffview.nvim",
+		config = function()
+			require("diffview").setup()
+		end,
 	},
 }

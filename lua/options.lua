@@ -10,7 +10,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.mouse = "a"
 vim.opt.showmode = false
-vim.opt.cursorline = false
+vim.opt.cursorline = true
 vim.opt.fillchars = { eob = " " }
 vim.opt.clipboard = "unnamedplus"
 vim.opt.signcolumn = "yes:2"

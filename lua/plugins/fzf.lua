@@ -43,5 +43,12 @@ return {
 			end,
 			desc = "Resume search",
 		},
+		{
+			"<leader>dh",
+			function()
+				FzfLua.command_history()
+			end,
+			desc = "Command history",
+		},
 	},
 }
