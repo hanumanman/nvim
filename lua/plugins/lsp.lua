@@ -52,7 +52,7 @@ return {
           -- code, if the language server you are using supports them
           if
             client
-            and client.supports_method(
+            and client:supports_method(
               vim.lsp.protocol.Methods.textDocument_inlayHint
             )
           then
@@ -69,7 +69,13 @@ return {
 
 			local servers = {
 				vtsls = {
+
 					filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+					settings = {
+						vtsls = {
+							autoUseWorkspaceTsdk = true,
+						},
+					},
 				},
 				ruff = {
 					init_options = {

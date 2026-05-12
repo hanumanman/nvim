@@ -6,6 +6,7 @@ return {
 	{
 		"silentium-theme/silentium.nvim",
 		lazy = false,
+		enabled = false,
 		priority = 1000,
 		config = function()
 			require("silentium").setup({
@@ -14,6 +15,7 @@ return {
 			vim.cmd([[colorscheme silentium]])
 			set_hl("@function", { italic = true })
 			set_hl("@type", { bold = true, fg = "#5fb36a" })
+			set_hl("@type.builtin.typescript", { bold = true, fg = "#5fb36a" })
 			set_hl("LspSignatureActiveParameter", { fg = "#007BA7" })
 			set_hl("Visual", { bg = "#005B7F" })
 			set_hl("FlashLabel", { link = "Visual" })
@@ -37,7 +39,7 @@ return {
 	{
 		"rebelot/kanagawa.nvim",
 		priority = 1000,
-		enabled = false,
+		enabled = true,
 		lazy = false,
 		config = function()
 			require("kanagawa").setup({
