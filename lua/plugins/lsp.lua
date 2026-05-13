@@ -27,9 +27,6 @@ return {
 		},
 		config = function()
 			--  This function gets run when an LSP attaches to a particular buffer.
-			--    That is to say, every time a new file is opened that is associated with
-			--    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-			--    function will be executed to configure the current buffer
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 				callback = function(event)
@@ -48,127 +45,98 @@ return {
           map('<leader>r', vim.lsp.buf.rename, 'Rename')
           map('<leader>ca', vim.lsp.buf.code_action, 'Code action', { 'n', 'x' })
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          -- The following code creates a keymap to toggle inlay hints in your
-          -- code, if the language server you are using supports them
-          if
-            client
-            and client:supports_method(
-              vim.lsp.protocol.Methods.textDocument_inlayHint
-            )
-          then
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             map('<leader>th', function()
-              vim.lsp.inlay_hint.enable(
-                not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }
-              )
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end
 				end,
 			})
 
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-			local servers = {
-				vtsls = {
-
-					filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-					settings = {
-						vtsls = {
-							autoUseWorkspaceTsdk = true,
-						},
-					},
-				},
-				ruff = {
-					init_options = {
-						settings = {
-							organizeImports = true,
-							logLevel = "debug",
-						},
-					},
-				},
-				jsonls = {
-					-- lazy-load schemastore when needed
-					on_new_config = function(new_config)
-						new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-						vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
-					end,
-					settings = {
-						json = {
-							format = {
-								enable = true,
-							},
-							validate = { enable = true },
-						},
-					},
-				},
-				lua_ls = {
-					settings = {
-						Lua = {
-							completion = {
-								callSnippet = "Replace",
-							},
-						},
-					},
-				},
-				cssls = {
-					settings = {
-						css = {
-							validate = true,
-							lint = {
-								unknownAtRules = "ignore",
-							},
-						},
-						less = {
-							validate = true,
-							lint = {
-								unknownAtRules = "ignore",
-							},
-						},
-						scss = {
-							validate = true,
-							lint = {
-								unknownAtRules = "ignore",
-							},
-						},
-					},
-				},
-			}
-
-			require("mason").setup()
-			local ensure_installed = vim.tbl_keys(servers or {})
-			vim.list_extend(ensure_installed, {
-				--lsp
-				"vtsls",
-				"lua-language-server",
-				"json-lsp",
-				"css-lsp",
-				"emmet-language-server",
-				"eslint-lsp",
-				"tailwindcss-language-server",
-				"svelte-language-server",
-				"pyrefly",
-				-- formatter
-				"ruff",
-				"stylua",
-				"shfmt",
-				"prettierd",
+			-- Apply blink.cmp capabilities to all servers
+			vim.lsp.config("*", {
+				capabilities = require("blink.cmp").get_lsp_capabilities(),
 			})
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-			---@diagnostic disable-next-line: missing-fields
-			require("mason-lspconfig").setup({
-				-- ensure_installed = ensure_installed,
-				-- automatic_installation = true,
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						-- This handles overriding only values explicitly passed
-						-- by the server configuration above. Useful when disabling
-						-- certain features of an LSP (for example, turning off formatting for ts_ls)
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
-					end,
+			vim.lsp.config("vtsls", {
+				settings = {
+					vtsls = {
+						autoUseWorkspaceTsdk = true,
+					},
+					javascript = {
+						preferences = {
+							importModuleSpecifier = "non-relative",
+						},
+					},
+					typescript = {
+						preferences = {
+							importModuleSpecifier = "non-relative",
+						},
+						suggest = {
+							includeCompletionsForImportStatements = true,
+						},
+					},
 				},
 			})
+
+			vim.lsp.config("ruff", {
+				init_options = {
+					settings = {
+						organizeImports = true,
+						logLevel = "debug",
+					},
+				},
+			})
+
+			vim.lsp.config("jsonls", {
+				settings = {
+					json = {
+						schemas = require("schemastore").json.schemas(),
+						format = { enable = true },
+						validate = { enable = true },
+					},
+				},
+			})
+
+			vim.lsp.config("lua_ls", {
+				settings = {
+					Lua = {
+						completion = {
+							callSnippet = "Replace",
+						},
+					},
+				},
+			})
+
+			vim.lsp.config("cssls", {
+				settings = {
+					css = { validate = true, lint = { unknownAtRules = "ignore" } },
+					less = { validate = true, lint = { unknownAtRules = "ignore" } },
+					scss = { validate = true, lint = { unknownAtRules = "ignore" } },
+				},
+			})
+
+			require("mason-tool-installer").setup({
+				ensure_installed = {
+					-- lsp
+					"vtsls",
+					"lua-language-server",
+					"json-lsp",
+					"css-lsp",
+					"emmet-language-server",
+					"eslint-lsp",
+					"tailwindcss-language-server",
+					"svelte-language-server",
+					"pyrefly",
+					-- formatter
+					"ruff",
+					"stylua",
+					"shfmt",
+					"prettierd",
+				},
+			})
+
+			require("mason-lspconfig").setup()
 		end,
 	},
 	{
