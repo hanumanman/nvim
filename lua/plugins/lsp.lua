@@ -1,5 +1,4 @@
 return {
-
 	{
 		-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
 		-- used for completion, annotations and signatures of Neovim apis
@@ -127,7 +126,7 @@ return {
 					"eslint-lsp",
 					"tailwindcss-language-server",
 					"svelte-language-server",
-					"pyrefly",
+					"ty",
 					-- formatter
 					"ruff",
 					"stylua",

@@ -4,24 +4,13 @@ end
 
 return {
 	{
-		"silentium-theme/silentium.nvim",
+		"sage",
 		lazy = false,
-		enabled = false,
 		priority = 1000,
+		dir = vim.fn.stdpath("config") .. "/lua/plugins/sage",
 		config = function()
-			require("silentium").setup({
-				accent = "#007BA7",
-			})
-			vim.cmd([[colorscheme silentium]])
-			set_hl("@function", { italic = true })
-			set_hl("@type", { bold = true, fg = "#5fb36a" })
-			set_hl("@type.builtin.typescript", { bold = true, fg = "#5fb36a" })
-			set_hl("LspSignatureActiveParameter", { fg = "#007BA7" })
-			set_hl("Visual", { bg = "#005B7F" })
-			set_hl("FlashLabel", { link = "Visual" })
-			set_hl("MatchParen", { bg = "#007BA7" })
-			set_hl("MiniTablineHidden", { bg = "#141414", fg = "#a6a6a6" })
-			set_hl("Pmenu", { bg = "none" }) -- add `blend = vim.o.pumblend` to enable transparency
+			require("sage")
+			set_hl("Pmenu", { bg = "none" })
 			set_hl("BlinkCmpMenu", { bg = "none" })
 			set_hl("StatusLine", { bg = "none" })
 			set_hl("Float", { bg = "none" })
@@ -33,60 +22,6 @@ return {
 			set_hl("LspReferenceText", { bg = "none" })
 			set_hl("BlinkCmpDoc", { bg = "none" })
 			set_hl("BlinkCmpDocBorder", { bg = "none" })
-		end,
-	},
-
-	{
-		"rebelot/kanagawa.nvim",
-		priority = 1000,
-		enabled = true,
-		lazy = false,
-		config = function()
-			require("kanagawa").setup({
-				compile = true,
-				functionStyle = { italic = true },
-				colors = {
-					theme = {
-						all = {
-							ui = {
-								bg_gutter = "none",
-							},
-						},
-					},
-				},
-				overrides = function(colors)
-					local theme = colors.theme
-					local makeDiagnosticColor = function(color)
-						local c = require("kanagawa.lib.color")
-						return { fg = color, bg = c(color):blend(theme.ui.bg, 0.95):to_hex() }
-					end
-
-					return {
-						DiagnosticVirtualTextHint = makeDiagnosticColor(theme.diag.hint),
-						DiagnosticVirtualTextInfo = makeDiagnosticColor(theme.diag.info),
-						DiagnosticVirtualTextWarn = makeDiagnosticColor(theme.diag.warning),
-						DiagnosticVirtualTextError = makeDiagnosticColor(theme.diag.error),
-						Pmenu = { bg = "none" }, -- add `blend = vim.o.pumblend` to enable transparency
-						BlinkCmpMenu = { bg = "none" },
-						StatusLine = { bg = "none" },
-						Float = { bg = "none" },
-						NormalFloat = { bg = "none" },
-						FloatTitle = { bg = "none" },
-						FloatBorder = { bg = "none" },
-						BlinkCmpBorder = { bg = "none" },
-						BlinkCmpMenuBorder = { bg = "none" },
-						LspReferenceText = { bg = "none" },
-						BlinkCmpDoc = { bg = "none" },
-						BlinkCmpDocBorder = { bg = "none" },
-						PmenuSel = { fg = "none", bg = theme.ui.bg_p2 },
-						PmenuSbar = { bg = theme.ui.bg_m1 },
-						PmenuThumb = { bg = theme.ui.bg_p2 },
-						["@lsp.type.variable"] = { bold = true },
-					}
-				end,
-			})
-
-			vim.cmd([[colorscheme kanagawa]])
 		end,
 	},
 }
