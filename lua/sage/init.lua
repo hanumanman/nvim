@@ -525,10 +525,7 @@ local function setup()
 	set_hl("MiniFilesTitle", { fg = colors.teal, bg = colors.surface, bold = true })
 end
 
-return {
-	"sage",
-	lazy = false,
-	priority = 1000,
-	config = setup,
-}
+setup()
+
+return { colors = colors, setup = setup }
 
