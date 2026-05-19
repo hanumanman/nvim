@@ -528,4 +528,3 @@ end
 setup()
 
 return { colors = colors, setup = setup }
-
