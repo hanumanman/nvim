@@ -410,8 +410,30 @@ do
 
   local servers = {
     vtsls = {
+      filetypes = {
+        'javascript',
+        'javascriptreact',
+        'javascript.jsx',
+        'typescript',
+        'typescriptreact',
+        'typescript.tsx',
+        'vue',
+      },
       settings = {
-        vtsls = { autoUseWorkspaceTsdk = true },
+        vtsls = {
+          autoUseWorkspaceTsdk = true,
+          tsserver = {
+            globalPlugins = {
+              {
+                name = '@vue/typescript-plugin',
+                location = vim.fn.stdpath('data') .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
+                languages = { 'vue' },
+                configNamespace = 'typescript',
+                enableForWorkspaceTypeScriptVersions = true,
+              },
+            },
+          },
+        },
         javascript = { preferences = { importModuleSpecifier = 'non-relative' } },
         typescript = {
           preferences = { importModuleSpecifier = 'non-relative' },
@@ -419,6 +441,7 @@ do
         },
       },
     },
+    vue_ls = {},
     ruff = {
       init_options = {
         settings = { organizeImports = true, logLevel = 'debug' },
@@ -550,6 +573,7 @@ do
       html = { 'prettierd' },
       css = { 'prettierd' },
       scss = { 'prettierd' },
+      vue = { 'prettierd' },
       sh = { 'shfmt' },
     },
   })
@@ -619,7 +643,7 @@ do
   vim.opt.runtimepath:prepend(install_dir)
 
   require('nvim-treesitter').setup({ install_dir = install_dir })
-  require('nvim-treesitter').install({ 'lua', 'vim', 'vimdoc', 'query', 'javascript', 'typescript', 'html', 'css' })
+  require('nvim-treesitter').install({ 'lua', 'vim', 'vimdoc', 'query', 'javascript', 'typescript', 'html', 'css', 'vue' })
 
   vim.api.nvim_create_autocmd('FileType', {
     callback = function(args)
