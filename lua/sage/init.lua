@@ -293,9 +293,9 @@ local function setup()
   set_hl('@punctuation.delimiter', { fg = colors.off_white })
   set_hl('@punctuation.special', { fg = colors.off_white })
 
-  set_hl('FlashLabel', { bg = colors.selection_primary, fg = colors.base, bold = true })
-  set_hl('FlashMatch', { bg = colors.selection, fg = colors.base, bold = true })
-  set_hl('FlashCurrent', { bg = colors.selection, fg = colors.base })
+  set_hl('FlashLabel', { bg = colors.soft_yellow, fg = colors.base, bold = true })
+  set_hl('FlashMatch', { bg = colors.selection_primary, fg = colors.off_white, bold = true })
+  set_hl('FlashCurrent', { bg = colors.teal, fg = colors.base, bold = true })
 
   set_hl('MiniTablineHidden', { fg = colors.warm_gray, bg = colors.base })
   set_hl('MiniTablineActive', { fg = colors.off_white, bg = colors.surface, bold = true })

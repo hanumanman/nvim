@@ -1,3 +1,4 @@
+---@diagnostic disable: duplicate-set-field
 -- ============================================================
 -- SECTION 1: FOUNDATION
 -- Core Neovim settings, leaders, options, basic keymaps,
@@ -426,7 +427,8 @@ do
             globalPlugins = {
               {
                 name = '@vue/typescript-plugin',
-                location = vim.fn.stdpath('data') .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
+                location = vim.fn.stdpath('data')
+                  .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
                 languages = { 'vue' },
                 configNamespace = 'typescript',
                 enableForWorkspaceTypeScriptVersions = true,
@@ -643,7 +645,17 @@ do
   vim.opt.runtimepath:prepend(install_dir)
 
   require('nvim-treesitter').setup({ install_dir = install_dir })
-  require('nvim-treesitter').install({ 'lua', 'vim', 'vimdoc', 'query', 'javascript', 'typescript', 'html', 'css', 'vue' })
+  require('nvim-treesitter').install({
+    'lua',
+    'vim',
+    'vimdoc',
+    'query',
+    'javascript',
+    'typescript',
+    'html',
+    'css',
+    'vue',
+  })
 
   vim.api.nvim_create_autocmd('FileType', {
     callback = function(args)
