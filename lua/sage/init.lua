@@ -285,7 +285,7 @@ local function setup()
   set_hl('@markup.raw', { fg = colors.sage })
 
   set_hl('@tag', { fg = colors.teal })
-  set_hl('@tag.attribute', { fg = colors.teal })
+  set_hl('@tag.attribute', { fg = colors.soft_gold })
   set_hl('@tag.delimiter', { fg = colors.warm_gray })
 
   set_hl('@punctuation', { fg = colors.off_white })
