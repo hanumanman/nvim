@@ -817,7 +817,7 @@ do
 
   -- Render markdown
   vim.pack.add({ gh('MeanderingProgrammer/render-markdown.nvim') })
-  require('render-markdown').setup({ enabled = false })
+  require('render-markdown').setup({ enabled = true })
   vim.keymap.set('n', '<leader>tm', '<cmd>RenderMarkdown toggle<cr>', { desc = 'Toggle Render Markdown' })
 
   -- lazydev for Neovim Lua development
