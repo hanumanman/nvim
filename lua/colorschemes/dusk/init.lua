@@ -1,0 +1,535 @@
+local c = {
+  bg = {
+    base = '#13131c',
+    mantle = '#1b1b25',
+    surface = '#252530',
+    overlay = '#343440',
+    selection = '#333551',
+    selection_primary = '#454a6e',
+  },
+  fg = {
+    body = '#b0b1b7',
+    muted = '#84848c',
+  },
+  accent = {
+    periwinkle = '#9ba0d3',
+    ice = '#6aadb9',
+    lavender = '#ae9bc6',
+    seafoam = '#74af97',
+    champagne = '#ada37c',
+    steel = '#96a3bd',
+    powder = '#86a8bf',
+  },
+  semantic = {
+    red = '#dc8e8e',
+    amber = '#c19d60',
+  },
+  pop = {
+    lilac = '#d9c6fe',
+    ice = '#73dee9',
+  },
+}
+
+local groups = {}
+
+local function hl(name, style)
+  groups[name] = style
+end
+
+hl('Normal', { fg = c.fg.body, bg = c.bg.base })
+hl('NormalNC', { fg = c.fg.body, bg = c.bg.base })
+hl('Cursor', { fg = c.bg.base, bg = c.pop.ice })
+hl('CursorLine', { bg = c.bg.mantle })
+hl('CursorLineNr', { fg = c.fg.body, bg = c.bg.mantle, bold = true })
+hl('LineNr', { fg = c.fg.muted })
+hl('CursorLineFold', { fg = c.fg.muted })
+hl('ColorColumn', { bg = c.bg.surface })
+hl('Conceal', { fg = c.fg.muted })
+hl('MatchParen', { bg = c.bg.selection_primary, bold = true })
+
+hl('Comment', { fg = c.fg.muted, italic = true })
+hl('Constant', { fg = c.accent.champagne })
+hl('String', { fg = c.accent.seafoam })
+hl('Character', { fg = c.accent.seafoam })
+hl('Number', { fg = c.accent.champagne })
+hl('Boolean', { fg = c.accent.champagne })
+hl('Float', { fg = c.accent.champagne })
+
+hl('Identifier', { fg = c.fg.body })
+hl('Function', { fg = c.accent.ice, italic = true })
+hl('Variable', { fg = c.fg.body })
+hl('VariableBuiltin', { fg = c.accent.periwinkle })
+
+hl('Type', { fg = c.accent.lavender, bold = true })
+hl('TypeBuiltin', { fg = c.accent.lavender, bold = true })
+hl('Struct', { fg = c.accent.lavender })
+hl('Enum', { fg = c.accent.lavender })
+hl('Class', { fg = c.accent.lavender })
+
+hl('Keyword', { fg = c.accent.periwinkle })
+hl('KeywordFunction', { fg = c.accent.periwinkle })
+hl('KeywordReturn', { fg = c.accent.periwinkle })
+hl('Conditional', { fg = c.accent.periwinkle })
+hl('Repeat', { fg = c.accent.periwinkle })
+hl('Label', { fg = c.accent.periwinkle })
+hl('Operator', { fg = c.accent.steel })
+hl('Punctuation', { fg = c.fg.body })
+hl('Delimiter', { fg = c.fg.body })
+
+hl('Namespace', { fg = c.accent.periwinkle, italic = true })
+hl('Attribute', { fg = c.accent.periwinkle })
+hl('PreProc', { fg = c.accent.periwinkle })
+hl('Include', { fg = c.accent.periwinkle })
+hl('Define', { fg = c.accent.periwinkle })
+hl('Macro', { fg = c.accent.periwinkle })
+hl('PreCondit', { fg = c.accent.periwinkle })
+
+hl('Title', { fg = c.accent.periwinkle, bold = true })
+hl('Special', { fg = c.accent.seafoam })
+hl('SpecialChar', { fg = c.accent.seafoam })
+hl('Tag', { fg = c.accent.periwinkle })
+hl('Underlined', { underline = true })
+hl('Ignore', {})
+hl('Error', { fg = c.semantic.red, bold = true })
+hl('Todo', { fg = c.semantic.amber, bold = true })
+hl('Warning', { fg = c.semantic.amber })
+
+hl('Exception', { fg = c.semantic.red })
+hl('StorageClass', { fg = c.accent.lavender })
+hl('Structure', { fg = c.accent.lavender })
+hl('Typedef', { fg = c.accent.lavender })
+hl('Debug', { fg = c.accent.champagne })
+hl('DebugPC', { bg = c.bg.surface })
+
+hl('Visual', { bg = c.bg.selection })
+hl('VisualNOS', { bg = c.bg.selection, underline = true })
+
+hl('Search', { fg = c.bg.base, bg = c.pop.lilac, bold = true })
+hl('IncSearch', { fg = c.bg.base, bg = c.pop.lilac, bold = true })
+hl('CurSearch', { fg = c.bg.base, bg = c.pop.lilac, bold = true })
+hl('Substitute', { fg = c.bg.base, bg = c.semantic.red, bold = true })
+
+hl('NonText', { fg = c.fg.muted })
+hl('Whitespace', { fg = c.fg.muted })
+hl('SpecialKey', { fg = c.fg.muted })
+hl('EndOfBuffer', { fg = c.bg.base })
+
+hl('FoldColumn', { fg = c.fg.muted, bg = c.bg.base })
+hl('Folded', { fg = c.fg.muted, bg = c.bg.surface, italic = true })
+
+hl('StatusLine', { fg = c.fg.body, bg = c.bg.mantle })
+hl('StatusLineNC', { fg = c.fg.muted, bg = c.bg.base })
+hl('WinBar', { fg = c.fg.muted, bg = c.bg.mantle })
+hl('WinBarNC', { fg = c.fg.muted, bg = c.bg.base })
+hl('VertSplit', { fg = c.bg.overlay, bg = c.bg.base })
+
+hl('TabLine', { fg = c.fg.muted, bg = c.bg.base })
+hl('TabLineFill', { fg = c.fg.muted, bg = c.bg.base })
+hl('TabLineSel', { fg = c.fg.body, bg = c.bg.surface, bold = true })
+
+hl('SignColumn', { fg = c.fg.muted, bg = c.bg.base })
+hl('SignColumnSB', { fg = c.fg.muted, bg = c.bg.surface })
+
+hl('QuickFixLine', { fg = c.accent.ice, bold = true })
+hl('qfLineNr', { fg = c.fg.muted })
+hl('qfFileName', 'Directory')
+
+hl('MoreMsg', { fg = c.accent.powder })
+hl('Question', { fg = c.accent.powder })
+hl('ModeMsg', { fg = c.semantic.amber, bold = true })
+hl('MsgArea', { fg = c.fg.muted })
+hl('MsgSeparator', { fg = c.bg.overlay, bg = c.bg.mantle })
+hl('WarningMsg', { fg = c.semantic.amber })
+hl('ErrorMsg', { fg = c.semantic.red })
+
+hl('WildMenu', 'Pmenu')
+hl('Bold', { bold = true })
+hl('Italic', { italic = true })
+
+hl('SpellBad', { undercurl = true, sp = c.semantic.red })
+hl('SpellCap', { undercurl = true, sp = c.semantic.amber })
+hl('SpellLocal', { undercurl = true, sp = c.semantic.amber })
+hl('SpellRare', { undercurl = true, sp = c.accent.powder })
+
+hl('PMenu', { fg = c.fg.body, bg = c.bg.surface })
+hl('PMenuSel', { fg = c.fg.body, bg = c.bg.overlay, bold = true })
+hl('PMenuSbar', { bg = c.bg.surface })
+hl('PMenuThumb', { bg = c.fg.muted })
+
+hl('Float', { bg = c.bg.surface })
+hl('NormalFloat', { fg = c.fg.body, bg = c.bg.surface })
+hl('FloatBorder', { fg = c.bg.overlay, bg = c.bg.surface })
+hl('FloatTitle', { fg = c.fg.body, bg = c.bg.surface })
+
+hl('diffAdded', { fg = c.accent.seafoam })
+hl('diffChanged', { fg = c.accent.champagne })
+hl('diffRemoved', { fg = c.semantic.red })
+hl('diffOldFile', { fg = c.semantic.red })
+hl('diffNewFile', { fg = c.accent.seafoam })
+hl('diffFile', { fg = c.fg.body })
+hl('diffLine', { fg = c.accent.periwinkle })
+hl('diffIndexLine', { fg = c.accent.champagne })
+
+hl('gitSignsAdd', { fg = c.accent.seafoam })
+hl('gitSignsChange', { fg = c.accent.champagne })
+hl('gitSignsDelete', { fg = c.semantic.red })
+hl('GitSignsAddLn', { fg = c.accent.seafoam, bg = c.bg.surface })
+hl('GitSignsChangeLn', { fg = c.accent.champagne, bg = c.bg.surface })
+hl('GitSignsDeleteLn', { fg = c.semantic.red, bg = c.bg.surface })
+
+hl('DiagnosticError', { fg = c.semantic.red, bold = true })
+hl('DiagnosticWarn', { fg = c.semantic.amber, bold = true })
+hl('DiagnosticInfo', { fg = c.accent.powder, bold = true })
+hl('DiagnosticHint', { fg = c.accent.seafoam, bold = true })
+
+hl('DiagnosticVirtualTextError', { fg = c.semantic.red, bg = c.bg.surface })
+hl('DiagnosticVirtualTextWarn', { fg = c.semantic.amber, bg = c.bg.surface })
+hl('DiagnosticVirtualTextInfo', { fg = c.accent.powder, bg = c.bg.surface })
+hl('DiagnosticVirtualTextHint', { fg = c.accent.seafoam, bg = c.bg.surface })
+
+hl('DiagnosticUnderlineError', { undercurl = true, sp = c.semantic.red })
+hl('DiagnosticUnderlineWarn', { undercurl = true, sp = c.semantic.amber })
+hl('DiagnosticUnderlineInfo', { undercurl = true, sp = c.accent.powder })
+hl('DiagnosticUnderlineHint', { undercurl = true, sp = c.accent.seafoam })
+
+hl('DiagnosticFloatingError', { fg = c.semantic.red, bg = c.bg.surface })
+hl('DiagnosticFloatingWarn', { fg = c.semantic.amber, bg = c.bg.surface })
+hl('DiagnosticFloatingInfo', { fg = c.accent.powder, bg = c.bg.surface })
+hl('DiagnosticFloatingHint', { fg = c.accent.seafoam, bg = c.bg.surface })
+
+hl('DiagnosticOk', { fg = c.accent.seafoam })
+
+hl('LspReferenceText', { bg = c.bg.selection })
+hl('LspReferenceRead', { bg = c.bg.selection })
+hl('LspReferenceWrite', { bg = c.bg.selection })
+
+hl('LspCodeLens', { fg = c.fg.muted })
+hl('LspCodeLensLine', { bg = c.bg.surface })
+hl('LspSignatureActiveParameter', { fg = c.accent.periwinkle, bg = c.bg.surface })
+
+hl('@comment', { fg = c.fg.muted, italic = true })
+hl('@attribute', { fg = c.accent.periwinkle })
+hl('@type', { fg = c.accent.lavender, bold = true })
+hl('@type.builtin', { fg = c.accent.lavender, bold = true })
+hl('@constructor', { fg = c.accent.lavender })
+hl('@constant', { fg = c.accent.champagne })
+hl('@constant.builtin', { fg = c.accent.champagne })
+hl('@string', { fg = c.accent.seafoam })
+hl('@variable', { fg = c.fg.body })
+hl('@variable.parameter', { fg = c.fg.body, italic = true })
+hl('@variable.member', { fg = c.fg.body })
+hl('@variable.builtin', { fg = c.accent.periwinkle })
+hl('@keyword', { fg = c.accent.periwinkle })
+hl('@keyword.function', { fg = c.accent.periwinkle })
+hl('@keyword.operator', { fg = c.accent.periwinkle })
+hl('@keyword.return', { fg = c.accent.periwinkle })
+hl('@keyword.import', { fg = c.accent.periwinkle })
+hl('@keyword.conditional', { fg = c.accent.periwinkle })
+hl('@keyword.repeat', { fg = c.accent.periwinkle })
+hl('@keyword.exception', { fg = c.semantic.red, bold = true })
+hl('@operator', { fg = c.accent.steel })
+hl('@function', { fg = c.accent.ice, italic = true })
+hl('@function.builtin', { fg = c.accent.ice })
+hl('@function.call', { fg = c.accent.ice, italic = true })
+hl('@function.method', { fg = c.accent.ice, italic = true })
+hl('@function.macro', { fg = c.accent.periwinkle })
+hl('@namespace', { fg = c.accent.periwinkle, italic = true })
+hl('@module', { fg = c.accent.periwinkle, italic = true })
+hl('@module.builtin', { fg = c.accent.periwinkle })
+hl('@label', { fg = c.accent.periwinkle })
+hl('@string.regexp', { fg = c.accent.champagne })
+hl('@string.escape', { fg = c.accent.champagne, bold = true })
+hl('@string.special.symbol', { fg = c.fg.body })
+hl('@string.special.url', { fg = c.accent.ice, underline = true })
+hl('@type.definition', { fg = c.accent.lavender })
+hl('@property', { fg = c.fg.body })
+
+hl('@comment.error', { fg = c.bg.base, bg = c.semantic.red, bold = true })
+hl('@comment.warning', { fg = c.bg.base, bg = c.semantic.amber, bold = true })
+hl('@comment.note', { fg = c.bg.base, bg = c.accent.powder, bold = true })
+
+hl('@markup.heading', { fg = c.accent.periwinkle, bold = true })
+hl('@markup.heading.1', { fg = c.accent.periwinkle, bold = true })
+hl('@markup.heading.2', { fg = c.accent.periwinkle, bold = true })
+hl('@markup.heading.3', { fg = c.accent.periwinkle, bold = true })
+hl('@markup.heading.4', { fg = c.accent.periwinkle, bold = true })
+hl('@markup.bold', { fg = c.fg.body, bold = true })
+hl('@markup.italic', { fg = c.fg.body, italic = true })
+hl('@markup.underline', { fg = c.fg.body, underline = true })
+hl('@markup.strikethrough', { fg = c.fg.muted, strikethrough = true })
+hl('@markup.link', { fg = c.accent.ice, underline = true })
+hl('@markup.link.label', { fg = c.accent.ice })
+hl('@markup.link.url', { fg = c.accent.ice, underline = true })
+hl('@markup.raw', { fg = c.accent.seafoam })
+hl('@markup.quote', { fg = c.fg.muted, italic = true })
+hl('@markup.math', { fg = c.accent.champagne })
+hl('@markup.environment', { fg = c.accent.periwinkle })
+hl('@markup.list', { fg = c.fg.muted })
+hl('@markup.list.checked', { fg = c.accent.seafoam })
+hl('@markup.list.unchecked', { fg = c.fg.muted })
+
+hl('@tag', { fg = c.accent.periwinkle })
+hl('@tag.builtin', { fg = c.accent.periwinkle })
+hl('@tag.attribute', { fg = c.accent.champagne })
+hl('@tag.delimiter', { fg = c.fg.muted })
+
+hl('@punctuation', { fg = c.fg.body })
+hl('@punctuation.bracket', { fg = c.fg.body })
+hl('@punctuation.delimiter', { fg = c.fg.body })
+hl('@punctuation.special', { fg = c.fg.body })
+
+hl('@diff.plus', { fg = c.accent.seafoam })
+hl('@diff.minus', { fg = c.semantic.red })
+hl('@diff.delta', { fg = c.accent.champagne })
+
+hl('@lsp.type.class', { fg = c.accent.lavender })
+hl('@lsp.type.struct', { fg = c.accent.lavender })
+hl('@lsp.type.enum', { fg = c.accent.lavender })
+hl('@lsp.type.interface', { fg = c.accent.lavender })
+hl('@lsp.type.type', { fg = c.accent.lavender })
+hl('@lsp.type.typeParameter', { fg = c.accent.lavender })
+hl('@lsp.type.function', { fg = c.accent.ice })
+hl('@lsp.type.method', { fg = c.accent.ice })
+hl('@lsp.type.property', { fg = c.fg.body })
+hl('@lsp.type.variable', { fg = c.fg.body })
+hl('@lsp.type.parameter', { fg = c.fg.body, italic = true })
+hl('@lsp.type.constant', { fg = c.accent.champagne })
+hl('@lsp.type.enumMember', { fg = c.accent.champagne })
+hl('@lsp.type.namespace', { fg = c.accent.periwinkle, italic = true })
+hl('@lsp.type.keyword', { fg = c.accent.periwinkle })
+hl('@lsp.type.operator', { fg = c.accent.steel })
+hl('@lsp.type.string', { fg = c.accent.seafoam })
+hl('@lsp.type.number', { fg = c.accent.champagne })
+hl('@lsp.type.boolean', { fg = c.accent.champagne })
+hl('@lsp.type.macro', { fg = c.accent.periwinkle })
+hl('@lsp.type.selfParameter', { fg = c.accent.periwinkle, italic = true })
+hl('@lsp.type.builtinConstant', { fg = c.accent.champagne })
+hl('@lsp.type.magicFunction', { fg = c.accent.ice })
+hl('@lsp.mod.readonly', { fg = c.accent.champagne, bold = true })
+hl('@lsp.mod.typeHint', { fg = c.accent.lavender })
+hl('@lsp.typemod.variable.global', { fg = c.accent.champagne })
+hl('@lsp.typemod.variable.static', { fg = c.accent.champagne })
+hl('@lsp.typemod.variable.defaultLibrary', { fg = c.accent.periwinkle })
+hl('@lsp.typemod.function.builtin', { fg = c.accent.ice })
+hl('@lsp.typemod.function.defaultLibrary', { fg = c.accent.ice })
+hl('@lsp.typemod.method.defaultLibrary', { fg = c.accent.ice })
+hl('@lsp.typemod.variable.injected', { fg = c.accent.seafoam })
+hl('@lsp.typemod.function.readonly', { fg = c.accent.ice, bold = true })
+
+hl('TSKeyword', 'Keyword')
+hl('TSKeywordFunction', 'Keyword')
+hl('TSConstant', 'Constant')
+hl('TSString', 'String')
+hl('TSCharacter', 'Character')
+hl('TSNumber', 'Number')
+hl('TSBoolean', 'Boolean')
+hl('TSFloat', 'Float')
+hl('TSVariable', 'Identifier')
+hl('TSVariableBuiltin', 'VariableBuiltin')
+hl('TSFunction', 'Function')
+hl('TSMethod', 'Function')
+hl('TSType', 'Type')
+hl('TSTypeBuiltin', 'Type')
+hl('TSStruct', 'Struct')
+hl('TSEnum', 'Enum')
+hl('TSClass', 'Class')
+hl('TSNamespace', 'Namespace')
+hl('TSProperty', '@property')
+hl('TSField', '@variable.member')
+hl('TSParameter', '@variable.parameter')
+hl('TSParameterBuiltin', '@variable.builtin')
+hl('TSOperator', 'Operator')
+hl('TSAttribute', 'Attribute')
+hl('TSComment', 'Comment')
+hl('TSNote', { fg = c.accent.powder })
+hl('TSWarning', { fg = c.semantic.amber })
+hl('TSDanger', { fg = c.semantic.red })
+hl('TSText', '@markup')
+hl('TSEmphasis', '@markup.italic')
+hl('TSStrong', '@markup.bold')
+hl('TSStringSpecial', '@string')
+hl('TSLiteral', '@markup.raw')
+hl('TSUri', '@string.special.url')
+hl('TSTitle', 'Title')
+hl('TSLabel', 'Label')
+hl('TSHeading', '@markup.heading')
+
+hl('TreesitterContext', { bg = c.bg.surface })
+hl('TreesitterContextLineNumber', { fg = c.accent.periwinkle, bg = c.bg.surface })
+hl('TreesitterContextBottom', { underline = true })
+hl('TreesitterContextLineNumberBottom', { underline = true })
+
+hl('FlashLabel', { fg = c.bg.base, bg = c.pop.lilac, bold = true })
+hl('FlashMatch', { fg = c.fg.body, bg = c.bg.selection_primary })
+hl('FlashCurrent', { fg = c.bg.base, bg = c.pop.ice, bold = true })
+
+hl('MiniTablineHidden', { fg = c.fg.muted, bg = c.bg.base })
+hl('MiniTablineActive', { fg = c.fg.body, bg = c.bg.surface, bold = true })
+hl('MiniTablineVisible', { fg = c.fg.body, bg = c.bg.base })
+hl('MiniTablineSelectedActive', { fg = c.fg.body, bg = c.bg.surface, bold = true })
+hl('MiniTablineSelectedVisible', { fg = c.fg.body, bg = c.bg.surface, bold = true })
+
+hl('MiniCursorword', { bg = c.bg.surface })
+hl('MiniCursorwordCurrent', { bg = c.bg.surface })
+
+hl('IblIndent', { fg = c.bg.overlay })
+hl('IblWhitespace', { fg = c.bg.overlay })
+hl('IblScope', { fg = c.accent.steel })
+hl('IndentBlanklineChar', { fg = c.bg.overlay })
+hl('IndentBlanklineSpaceChar', { fg = c.bg.overlay })
+hl('IndentBlanklineContextChar', { fg = c.accent.steel })
+
+hl('BlinkCmpMenu', { fg = c.fg.body, bg = c.bg.surface })
+hl('BlinkCmpMenuBorder', { fg = c.bg.overlay, bg = c.bg.surface })
+hl('BlinkCmpMenuSelection', { fg = c.fg.body, bg = c.bg.overlay, bold = true })
+hl('BlinkCmpMenuBackdrop', { bg = c.bg.overlay })
+hl('BlinkCmpDoc', { fg = c.fg.body, bg = c.bg.surface })
+hl('BlinkCmpDocBorder', { fg = c.bg.overlay, bg = c.bg.surface })
+hl('BlinkCmpDocSelection', { fg = c.fg.body, bg = c.bg.overlay })
+hl('BlinkCmpDocBackdrop', { bg = c.bg.overlay })
+
+hl('BlinkCmpLabel', { fg = c.fg.body })
+hl('BlinkCmpLabelMatch', { fg = c.accent.periwinkle, bold = true })
+hl('BlinkCmpLabelDeprecated', { fg = c.fg.muted, strikethrough = true })
+hl('BlinkCmpLabelDescription', { fg = c.fg.muted })
+hl('BlinkCmpKind', { fg = c.accent.periwinkle })
+hl('BlinkCmpKindMatch', { fg = c.accent.ice })
+hl('BlinkCmpKindText', { fg = c.fg.body })
+hl('BlinkCmpKindMethod', { fg = c.accent.ice })
+hl('BlinkCmpKindFunction', { fg = c.accent.ice })
+hl('BlinkCmpKindConstructor', { fg = c.accent.lavender })
+hl('BlinkCmpKindVariable', { fg = c.fg.body })
+hl('BlinkCmpKindClass', { fg = c.accent.lavender })
+hl('BlinkCmpKindInterface', { fg = c.accent.lavender })
+hl('BlinkCmpKindStruct', { fg = c.accent.lavender })
+hl('BlinkCmpKindEnum', { fg = c.accent.lavender })
+hl('BlinkCmpKindEnumMember', { fg = c.accent.champagne })
+hl('BlinkCmpKindProperty', { fg = c.fg.body })
+hl('BlinkCmpKindField', { fg = c.fg.body })
+hl('BlinkCmpKindConstant', { fg = c.accent.champagne })
+hl('BlinkCmpKindSnippet', { fg = c.accent.seafoam })
+hl('BlinkCmpKindModule', { fg = c.accent.periwinkle })
+hl('BlinkCmpKindFile', { fg = c.accent.seafoam })
+hl('BlinkCmpKindFolder', { fg = c.fg.muted })
+hl('BlinkCmpKindUnit', { fg = c.accent.ice })
+hl('BlinkCmpKindReference', { fg = c.fg.muted })
+hl('BlinkCmpKindKeyword', { fg = c.accent.periwinkle })
+hl('BlinkCmpKindOperator', { fg = c.accent.steel })
+hl('BlinkCmpKindTypeParameter', { fg = c.accent.lavender })
+
+hl('TelescopeBorder', { fg = c.bg.overlay, bg = c.bg.base })
+hl('TelescopeTitle', { fg = c.accent.periwinkle })
+hl('TelescopeSelection', 'CursorLine')
+hl('TelescopeSelectionCaret', 'CursorLineNr')
+hl('TelescopeResultsClass', 'Structure')
+hl('TelescopeResultsStruct', 'Structure')
+hl('TelescopeResultsField', { fg = c.fg.body })
+hl('TelescopeResultsMethod', 'Function')
+hl('TelescopeResultsVariable', { fg = c.fg.body })
+
+hl('SupermavenNormal', { fg = c.fg.body, bg = c.bg.base })
+hl('SupermavenSelection', { fg = c.fg.body, bg = c.bg.surface })
+hl('SupermavenBorder', { fg = c.bg.overlay, bg = c.bg.base })
+
+hl('LualineNormal', { fg = c.fg.body, bg = c.bg.mantle })
+hl('LualineInsert', { fg = c.bg.base, bg = c.accent.seafoam, bold = true })
+hl('LualineVisual', { fg = c.bg.base, bg = c.accent.periwinkle, bold = true })
+hl('LualineCommand', { fg = c.bg.base, bg = c.accent.champagne, bold = true })
+hl('LualineReplace', { fg = c.bg.base, bg = c.semantic.red, bold = true })
+hl('LualineTerminal', { fg = c.bg.base, bg = c.accent.ice, bold = true })
+hl('LualineInactive', { fg = c.fg.muted, bg = c.bg.base })
+
+hl('DiffviewNormal', { bg = c.bg.surface })
+hl('DiffviewFilePanelTitle', { fg = c.accent.periwinkle, bold = true })
+hl('DiffviewFilePanelFileName', { fg = c.fg.body })
+hl('DiffviewFilePanelPath', { fg = c.fg.muted })
+hl('DiffviewFilePanelSelection', { bg = c.bg.selection })
+hl('DiffviewHistoryPanelTitle', { fg = c.accent.periwinkle, bold = true })
+hl('DiffviewHistoryPanelFile', { fg = c.fg.body })
+hl('DiffviewPanelTitle', { fg = c.accent.periwinkle, bold = true })
+hl('DiffViewPanelFile', { fg = c.fg.body })
+hl('DiffviewStatusModified', { fg = c.accent.champagne })
+hl('DiffviewStatusAdded', { fg = c.accent.seafoam })
+hl('DiffviewStatusRenamed', { fg = c.accent.seafoam })
+hl('DiffviewStatusDeleted', { fg = c.semantic.red })
+hl('DiffviewStatusUnknown', { fg = c.fg.muted })
+
+hl('NeogitDiffContextHighlight', { bg = c.bg.surface })
+hl('NeogitHunkHeader', { fg = c.fg.body })
+hl('NeogitHunkHeaderHighlight', { fg = c.accent.champagne, bg = c.bg.surface })
+hl('NeogitDiffAddHighlight', { bg = c.bg.surface })
+hl('NeogitDiffDeleteHighlight', { bg = c.bg.surface })
+
+hl('MiniIconsDirectory', { fg = c.accent.powder })
+hl('MiniIconsFile', { fg = c.fg.body })
+hl('MiniIconsSymlinkFile', { fg = c.accent.ice })
+hl('MiniIconsLua', { fg = c.accent.lavender })
+hl('MiniIconsJson', { fg = c.accent.champagne })
+hl('MiniIconsJs', { fg = c.accent.champagne })
+hl('MiniIconsTs', { fg = c.accent.lavender })
+hl('MiniIconsMd', { fg = c.accent.powder })
+
+hl('AlphaHeader', { fg = c.accent.periwinkle, bold = true })
+hl('AlphaButtons', { fg = c.fg.body })
+hl('AlphaShortcut', { fg = c.fg.muted })
+hl('AlphaFooter', { fg = c.fg.muted })
+
+hl('NvimTreeNormal', { fg = c.fg.body, bg = c.bg.base })
+hl('NvimTreeNormalNC', { fg = c.fg.body, bg = c.bg.base })
+hl('NvimTreeRootFolder', { fg = c.fg.body, bold = true })
+hl('NvimTreeGitDirty', { fg = c.accent.champagne })
+hl('NvimTreeGitNew', { fg = c.accent.seafoam })
+hl('NvimTreeGitDeleted', { fg = c.semantic.red })
+hl('NvimTreeGitStaged', { fg = c.accent.seafoam })
+hl('NvimTreeSpecialFile', { fg = c.accent.champagne })
+hl('NvimTreeImageFile', { fg = c.semantic.red })
+hl('NvimTreeSymlink', { fg = c.accent.lavender })
+hl('NvimTreeFolderName', 'Directory')
+hl('NvimTreeExecFile', { fg = c.accent.seafoam, bold = true })
+hl('NvimTreeOpenedFile', { fg = c.accent.seafoam, italic = true })
+hl('NvimTreeWinSeparator', 'VertSplit')
+hl('NvimTreeWindowPicker', { bg = c.bg.selection, fg = c.accent.periwinkle, bold = true })
+
+hl('NeoTreeTabInactive', 'TabLine')
+hl('NeoTreeTabActive', 'TabLineSel')
+hl('NeoTreeTabSeparatorInactive', 'TabLine')
+hl('NeoTreeTabSeparatorActive', 'TabLineSel')
+hl('NeoTreeRootName', { fg = c.fg.body, bold = true })
+hl('NeoTreeModified', { fg = c.accent.champagne })
+hl('NeoTreeGitModified', { fg = c.accent.champagne })
+hl('NeoTreeGitAdded', { fg = c.accent.seafoam })
+hl('NeoTreeGitDeleted', { fg = c.semantic.red })
+hl('NeoTreeGitStaged', { fg = c.accent.seafoam })
+hl('NeoTreeGitConflict', { fg = c.semantic.red })
+hl('NeoTreeIndentMarker', 'NonText')
+
+hl('MiniFilesBorder', 'FloatBorder')
+hl('MiniFilesBorderModified', 'DiagnosticWarn')
+hl('MiniFilesCursorLine', 'CursorLine')
+hl('MiniFilesDirectory', 'Directory')
+hl('MiniFilesFile', { fg = c.fg.body })
+hl('MiniFilesNormal', 'NormalFloat')
+hl('MiniFilesTitle', { fg = c.accent.periwinkle, bg = c.bg.surface, bold = true })
+
+hl('markdownCode', { fg = c.accent.seafoam })
+hl('markdownCodeBlock', { fg = c.accent.seafoam })
+
+hl('Directory', { fg = c.accent.ice })
+
+local function setup()
+  vim.cmd('hi clear')
+  vim.o.termguicolors = true
+  vim.g.colors_name = 'dusk'
+
+  for name, style in pairs(groups) do
+    if type(style) == 'string' then
+      vim.api.nvim_set_hl(0, name, { link = style })
+    else
+      vim.api.nvim_set_hl(0, name, style)
+    end
+  end
+end
+
+setup()
+
+return { colors = c, groups = groups, setup = setup }

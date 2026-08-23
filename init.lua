@@ -191,6 +191,40 @@ do
           end
         end)
       end,
+      go = function()
+        local gopls
+        for _, c in ipairs(clients) do
+          if c.name == 'gopls' then
+            gopls = c
+            break
+          end
+        end
+        if not gopls then
+          vim.notify('gopls LSP not found', vim.log.levels.WARN)
+          if callback then
+            callback()
+          end
+          return
+        end
+
+        ---@type lsp.CodeActionParams
+        ---@diagnostic disable-next-line: missing-parameter
+        local params = vim.lsp.util.make_range_params()
+        params.context = { only = { 'source.organizeImports' }, diagnostics = {} }
+
+        local responses = gopls:request_sync('textDocument/codeAction', params, 5000, bufnr)
+        local actions = (responses and responses.result) or {}
+        for _, action in ipairs(actions) do
+          if action.edit then
+            vim.lsp.util.apply_workspace_edit(action.edit, gopls.offset_encoding)
+          elseif action.command then
+            gopls:exec_cmd(action.command)
+          end
+        end
+        if callback then
+          callback()
+        end
+      end,
     }
     handlers.typescriptreact = handlers.typescript
     handlers.javascript = handlers.typescript
@@ -269,10 +303,11 @@ end
 
 -- ============================================================
 -- SECTION 3: COLORSCHEME
--- Custom "sage" theme
+-- Custom themes in lua/colorschemes/
+-- sage | mist | dusk | abyss | glacier | zen | hearth
 -- ============================================================
 do
-  require('sage')
+  require('colorschemes.abyss')
 
   local set_hl = vim.api.nvim_set_hl
   set_hl(0, 'Pmenu', { bg = 'none' })
@@ -470,6 +505,22 @@ do
         scss = { validate = true, lint = { unknownAtRules = 'ignore' } },
       },
     },
+    gopls = {
+      settings = {
+        gopls = {
+          gofumpt = true,
+          staticcheck = true,
+          completeUnimported = true,
+          usePlaceholders = true,
+          analyses = {
+            unusedparams = true,
+            unusedvariable = true,
+            nilness = true,
+            shadow = true,
+          },
+        },
+      },
+    },
   }
 
   local ensure_installed = {
@@ -483,9 +534,11 @@ do
     'tailwindcss-language-server',
     'svelte-language-server',
     'ty',
+    'gopls',
     'stylua',
     'shfmt',
     'prettierd',
+    'gofumpt',
   }
   require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
@@ -565,6 +618,7 @@ do
     },
     formatters_by_ft = {
       lua = { 'stylua' },
+      go = { 'gofumpt' },
       javascript = { 'prettierd' },
       javascriptreact = { 'prettierd' },
       typescript = { 'prettierd' },
@@ -655,6 +709,10 @@ do
     'html',
     'css',
     'vue',
+    'go',
+    'gomod',
+    'gosum',
+    'gowork',
   })
 
   vim.api.nvim_create_autocmd('FileType', {
