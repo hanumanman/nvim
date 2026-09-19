@@ -3,6 +3,31 @@ local s = ls.snippet
 local t = ls.text_node
 
 return {
+  s('biome', {
+    t({
+      '{',
+      '  "$schema": "https://biomejs.dev/schemas/2.5.10/schema.json",',
+      '  "assist": {',
+      '    "actions": {',
+      '      "source": { "organizeImports": "on" },',
+      '    },',
+      '  },',
+      '  "formatter": {',
+      '    "indentStyle": "space",',
+      '    "indentWidth": 2,',
+      '    "lineWidth": 80,',
+      '  },',
+      '  "javascript": {',
+      '    "formatter": {',
+      '      "quoteStyle": "double",',
+      '      "semicolons": "asNeeded",',
+      '      "trailingCommas": "none",',
+      '      "arrowParentheses": "asNeeded",',
+      '    },',
+      '  },',
+      '}',
+    }),
+  }),
   s('prettier', {
     t({
       '{',

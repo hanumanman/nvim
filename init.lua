@@ -262,6 +262,84 @@ local function gh(repo)
   return 'https://github.com/' .. repo
 end
 
+--- Config file markers used to detect a project's JS/TS toolchain.
+local toolchain_markers = {
+  biome = { 'biome.json', 'biome.jsonc' },
+  prettier = {
+    '.prettierrc',
+    '.prettierrc.json',
+    '.prettierrc.json5',
+    '.prettierrc.yml',
+    '.prettierrc.yaml',
+    '.prettierrc.js',
+    '.prettierrc.cjs',
+    '.prettierrc.mjs',
+    'prettier.config.js',
+    'prettier.config.cjs',
+    'prettier.config.mjs',
+  },
+  eslint = {
+    'eslint.config.js',
+    'eslint.config.mjs',
+    'eslint.config.cjs',
+    'eslint.config.ts',
+    '.eslintrc',
+    '.eslintrc.json',
+    '.eslintrc.js',
+    '.eslintrc.cjs',
+    '.eslintrc.yml',
+    '.eslintrc.yaml',
+  },
+}
+
+--- Detect whether a buffer's project uses a given JS/TS toolchain.
+--- Checks config files first, then package.json fields and dependencies.
+---@param bufnr integer
+---@param kind 'biome'|'prettier'|'eslint'
+---@return boolean
+local function project_uses(bufnr, kind)
+  if vim.fs.root(bufnr, toolchain_markers[kind]) then
+    return true
+  end
+
+  local pkg_root = vim.fs.root(bufnr, { 'package.json' })
+  if not pkg_root then
+    return false
+  end
+
+  local ok, lines = pcall(vim.fn.readfile, pkg_root .. '/package.json')
+  if not ok then
+    return false
+  end
+  local decoded_ok, pkg = pcall(vim.json.decode, table.concat(lines, '\n'))
+  if not decoded_ok or type(pkg) ~= 'table' then
+    return false
+  end
+
+  if kind == 'prettier' and pkg.prettier then
+    return true
+  end
+
+  for _, field in ipairs({ 'dependencies', 'devDependencies' }) do
+    local deps = pkg[field]
+    if type(deps) == 'table' then
+      for name in pairs(deps) do
+        if kind == 'biome' and (name == '@biomejs/biome' or name == 'biome') then
+          return true
+        end
+        if kind == 'prettier' and name:match('^prettier') then
+          return true
+        end
+        if kind == 'eslint' and (name == 'eslint' or name:match('^eslint%-')) then
+          return true
+        end
+      end
+    end
+  end
+
+  return false
+end
+
 -- ============================================================
 -- SECTION 2: BUILD HOOKS
 -- Run build steps after plugin install/update
@@ -479,6 +557,25 @@ do
       },
     },
     vue_ls = {},
+    biome = {
+      root_markers = { 'biome.json', 'biome.jsonc' },
+    },
+    eslint = {
+      root_markers = {
+        {
+          'eslint.config.js',
+          'eslint.config.mjs',
+          'eslint.config.cjs',
+          'eslint.config.ts',
+        },
+        '.eslintrc',
+        '.eslintrc.json',
+        '.eslintrc.js',
+        '.eslintrc.cjs',
+        '.eslintrc.yml',
+        '.eslintrc.yaml',
+      },
+    },
     ruff = {
       init_options = {
         settings = { organizeImports = true, logLevel = 'debug' },
@@ -530,8 +627,9 @@ do
     'css-lsp',
     'ruff',
     'emmet-language-server',
-    'eslint-lsp',
     'tailwindcss-language-server',
+    'biome',
+    'eslint-lsp',
     'svelte-language-server',
     'ty',
     'gopls',
@@ -611,6 +709,22 @@ end
 -- ============================================================
 do
   vim.pack.add({ gh('stevearc/conform.nvim') })
+
+  --- Resolve the web formatter for a buffer based on its project setup.
+  --- Biome wins when configured; prettier is used when only prettier is
+  --- configured; biome is the default when neither is present.
+  ---@param bufnr integer
+  ---@return string[]
+  local function web_formatters(bufnr)
+    if project_uses(bufnr, 'biome') then
+      return { 'biome' }
+    end
+    if project_uses(bufnr, 'prettier') then
+      return { 'prettierd' }
+    end
+    return { 'biome' }
+  end
+
   require('conform').setup({
     format_on_save = {
       timeout_ms = 5000,
@@ -619,17 +733,17 @@ do
     formatters_by_ft = {
       lua = { 'stylua' },
       go = { 'gofumpt' },
-      javascript = { 'prettierd' },
-      javascriptreact = { 'prettierd' },
-      typescript = { 'prettierd' },
-      typescriptreact = { 'prettierd' },
+      javascript = web_formatters,
+      javascriptreact = web_formatters,
+      typescript = web_formatters,
+      typescriptreact = web_formatters,
+      json = web_formatters,
+      jsonc = web_formatters,
+      css = web_formatters,
+      vue = web_formatters,
       markdown = { 'prettierd' },
-      json = { 'prettierd' },
-      jsonc = { 'prettierd' },
       html = { 'prettierd' },
-      css = { 'prettierd' },
       scss = { 'prettierd' },
-      vue = { 'prettierd' },
       sh = { 'shfmt' },
     },
   })
