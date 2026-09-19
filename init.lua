@@ -381,8 +381,8 @@ end
 
 -- ============================================================
 -- SECTION 3: COLORSCHEME
--- Custom themes in lua/colorschemes/
--- sage | mist | dusk | abyss | glacier | zen | hearth
+-- Custom theme in lua/colorschemes/
+-- abyss
 -- ============================================================
 do
   require('colorschemes.abyss')
