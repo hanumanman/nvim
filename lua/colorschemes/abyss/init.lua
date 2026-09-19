@@ -8,21 +8,21 @@ local c = {
     selection_primary = '#2e516b',
   },
   fg = {
-    body = '#acb1b5',
-    muted = '#80858a',
+    body = '#c5cacc',
+    muted = '#969b9f',
   },
   accent = {
-    teal = '#79a6ce',
-    cyan = '#6aacb9',
-    blue = '#69aea9',
-    green = '#78ad90',
-    gold = '#b0a17b',
-    slate = '#8aa6b7',
-    sky = '#7fa8b9',
+    teal = '#8ab8e0',
+    cyan = '#7fc4d1',
+    blue = '#7aaede',
+    green = '#8fc39f',
+    gold = '#c7b489',
+    slate = '#9db9c9',
+    sky = '#8fb4c7',
   },
   semantic = {
-    red = '#db8d8d',
-    amber = '#c19d5f',
+    red = '#e59c9c',
+    amber = '#d0aa68',
   },
   pop = {
     teal = '#73dfdf',
@@ -151,10 +151,10 @@ hl('SpellCap', { undercurl = true, sp = c.semantic.amber })
 hl('SpellLocal', { undercurl = true, sp = c.semantic.amber })
 hl('SpellRare', { undercurl = true, sp = c.accent.sky })
 
-hl('PMenu', { fg = c.fg.body, bg = c.bg.surface })
-hl('PMenuSel', { fg = c.fg.body, bg = c.bg.overlay, bold = true })
-hl('PMenuSbar', { bg = c.bg.surface })
-hl('PMenuThumb', { bg = c.fg.muted })
+hl('Pmenu', { fg = c.fg.body, bg = c.bg.surface })
+hl('PmenuSel', { fg = c.fg.body, bg = c.bg.overlay, bold = true })
+hl('PmenuSbar', { bg = c.bg.surface })
+hl('PmenuThumb', { bg = c.fg.muted })
 
 hl('Float', { bg = c.bg.surface })
 hl('NormalFloat', { fg = c.fg.body, bg = c.bg.surface })
