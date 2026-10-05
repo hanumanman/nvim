@@ -381,23 +381,10 @@ end
 
 -- ============================================================
 -- SECTION 3: COLORSCHEME
--- kanagawa-wave via rebelot/kanagawa.nvim, abyss kept in lua/colorschemes/
+-- abyss via lua/colorschemes/abyss/
 -- ============================================================
 do
-  vim.pack.add({ gh('rebelot/kanagawa.nvim') })
-  require('kanagawa').setup({
-    compile = true,
-    colors = {
-      theme = {
-        all = {
-          ui = { bg_gutter = 'none' },
-        },
-      },
-    },
-  })
-  vim.cmd.colorscheme('kanagawa-wave')
-
-  -- require('colorschemes.abyss')
+  require('colorschemes.abyss')
 
   local set_hl = vim.api.nvim_set_hl
   set_hl(0, 'Pmenu', { bg = 'none' })
@@ -416,10 +403,6 @@ do
   vim.api.nvim_create_user_command('Abyss', function()
     require('colorschemes.abyss')
   end, { desc = 'Switch to abyss colorscheme' })
-
-  vim.api.nvim_create_user_command('Kanagawa', function()
-    vim.cmd.colorscheme('kanagawa-wave')
-  end, { desc = 'Switch to kanagawa-wave colorscheme' })
 end
 
 -- ============================================================
